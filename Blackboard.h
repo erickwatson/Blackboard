@@ -21,8 +21,6 @@ enum BlackboardItemType {
 //
 //};
 
-
-
 class Blackboard
 {
 	//// returns true if id exists
@@ -39,17 +37,25 @@ public:
 	~Blackboard();
 
 	BlackboardItemType getType(std::string key);
-
+	// Gets
 	bool set(std::string key, float valueIn);
+	bool set(std::string key, int& valueIn);
+	bool set(std::string key, char valueIn);
+	bool set(std::string key, bool valueIn);
+	
 	bool set(std::string key, void* valueIn);
 
+	// Sets
 	bool get(std::string key, float& valueOut);
 	bool get(std::string key, int& valueOut);
+	bool get(std::string key, char& valueOut);
+	bool get(std::string key, bool& valueOut);
 
 	template <typename T>
 	bool get(std::string key, T*& valueOut)
 	{
 		auto it = m_data.find(key);
+
 		if (it != m_data.end())	// If we find existing data with same key
 		{
 			if (it->second.type == POINTER)
@@ -59,7 +65,6 @@ public:
 			}
 		}
 		return false;
-
 	}
 
 
